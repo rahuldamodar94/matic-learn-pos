@@ -1,0 +1,14 @@
+{
+  "name": "pos-matic-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@maticnetwork/maticjs": "github:maticnetwork/matic.js#4d11fda2182c66a81e0bcb63669fc50eb8cc5473"
+  }
+}
