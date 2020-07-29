@@ -9,6 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@maticnetwork/maticjs": "github:maticnetwork/matic.js#4d11fda2182c66a81e0bcb63669fc50eb8cc5473"
+    "@maticnetwork/maticjs": "^2.0.2"
   }
 }
