@@ -1005,7 +1005,7 @@ contract Initializable {
 
 
 interface Data {
-    function setData(uint _test) external;
+    function setData(bytes calldata bytes_dta) external;
 }
 
 
@@ -1014,7 +1014,7 @@ contract CustomPredicate is ITokenPredicate, AccessControlMixin, Initializable {
     using RLPReader for RLPReader.RLPItem;
 
     bytes32 public constant MANAGER_ROLE = keccak256("MANAGER_ROLE");
-    bytes32 public constant CUSTOM_EVENT_SIG = 0xd67e513db128e9551b5eea287725891be42d9cf2596c29bbbfecf012ba6799e4;
+    bytes32 public constant CUSTOM_EVENT_SIG = 0x93f3e547dcb3ce9c356bb293f12e44f70fc24105d675b782bd639333aab70df7;
 
     event LockedERC20(
         address indexed depositor,
@@ -1054,7 +1054,7 @@ contract CustomPredicate is ITokenPredicate, AccessControlMixin, Initializable {
         );
 
         Data(rootToken).setData(
-            logRLPList[2].toUint() // log data field
+            logRLPList[2].toBytes() // log data field
         );
     }
     

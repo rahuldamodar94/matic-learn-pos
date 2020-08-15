@@ -83,13 +83,10 @@ contract Root is Ownable {
         _;
     }
 
-    event Data(address indexed from, uint256 value);
-
     uint256 public data;
 
-    function setData(uint256 _data) public onlyPredicate {
-        data = _data;
-        emit Data(msg.sender, data);
+    function setData(bytes memory _data) public onlyPredicate {
+        data = abi.decode(_data, (uint256));
     }
 
     function updatePredicate(address predicate_) public onlyOwner {
