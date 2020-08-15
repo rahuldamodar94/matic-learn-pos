@@ -7,9 +7,8 @@ contract Child {
 
     uint256 public data;
 
-    function setData(uint256 _data) public {
-        data = _data;
-        bytes memory bytes_data = abi.encode(_data);
+    function setData(bytes memory bytes_data) public {
+        data = abi.decode(bytes_data, (uint256));
         emit Data(msg.sender, bytes_data);
     }
 }

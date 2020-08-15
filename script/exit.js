@@ -2,7 +2,7 @@ const utils = require("../utils");
 const maticPOSClient = utils.getMaticPOSClient();
 
 const txHash =
-  "0xc094de3b7abd29f23a23549d9484e9c6bddb2542e2cc0aa605221cb55548951c";
+  "0x503ca0113411535bb86d5b0a4d130fd708794fdb91614d9b24a589bc6e0c4091";
 
 const logEventSignature =
   "0x93f3e547dcb3ce9c356bb293f12e44f70fc24105d675b782bd639333aab70df7";
