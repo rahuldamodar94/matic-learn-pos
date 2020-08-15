@@ -30,9 +30,14 @@ library Address {
         // and 0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470 is returned
         // for accounts without code, i.e. `keccak256('')`
         bytes32 codehash;
-        bytes32 accountHash = 0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470;
+
+
+            bytes32 accountHash
+         = 0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470;
         // solhint-disable-next-line no-inline-assembly
-        assembly { codehash := extcodehash(account) }
+        assembly {
+            codehash := extcodehash(account)
+        }
         return (codehash != accountHash && codehash != 0x0);
     }
 
@@ -53,11 +58,17 @@ library Address {
      * https://solidity.readthedocs.io/en/v0.5.11/security-considerations.html#use-the-checks-effects-interactions-pattern[checks-effects-interactions pattern].
      */
     function sendValue(address payable recipient, uint256 amount) internal {
-        require(address(this).balance >= amount, "Address: insufficient balance");
+        require(
+            address(this).balance >= amount,
+            "Address: insufficient balance"
+        );
 
         // solhint-disable-next-line avoid-low-level-calls, avoid-call-value
-        (bool success, ) = recipient.call{ value: amount }("");
-        require(success, "Address: unable to send value, recipient may have reverted");
+        (bool success, ) = recipient.call{value: amount}("");
+        require(
+            success,
+            "Address: unable to send value, recipient may have reverted"
+        );
     }
 
     /**
@@ -78,8 +89,11 @@ library Address {
      *
      * _Available since v3.1._
      */
-    function functionCall(address target, bytes memory data) internal returns (bytes memory) {
-      return functionCall(target, data, "Address: low-level call failed");
+    function functionCall(address target, bytes memory data)
+        internal
+        returns (bytes memory)
+    {
+        return functionCall(target, data, "Address: low-level call failed");
     }
 
     /**
@@ -88,7 +102,11 @@ library Address {
      *
      * _Available since v3.1._
      */
-    function functionCall(address target, bytes memory data, string memory errorMessage) internal returns (bytes memory) {
+    function functionCall(
+        address target,
+        bytes memory data,
+        string memory errorMessage
+    ) internal returns (bytes memory) {
         return _functionCallWithValue(target, data, 0, errorMessage);
     }
 
@@ -103,8 +121,18 @@ library Address {
      *
      * _Available since v3.1._
      */
-    function functionCallWithValue(address target, bytes memory data, uint256 value) internal returns (bytes memory) {
-        return functionCallWithValue(target, data, value, "Address: low-level call with value failed");
+    function functionCallWithValue(
+        address target,
+        bytes memory data,
+        uint256 value
+    ) internal returns (bytes memory) {
+        return
+            functionCallWithValue(
+                target,
+                data,
+                value,
+                "Address: low-level call with value failed"
+            );
     }
 
     /**
@@ -113,16 +141,31 @@ library Address {
      *
      * _Available since v3.1._
      */
-    function functionCallWithValue(address target, bytes memory data, uint256 value, string memory errorMessage) internal returns (bytes memory) {
-        require(address(this).balance >= value, "Address: insufficient balance for call");
+    function functionCallWithValue(
+        address target,
+        bytes memory data,
+        uint256 value,
+        string memory errorMessage
+    ) internal returns (bytes memory) {
+        require(
+            address(this).balance >= value,
+            "Address: insufficient balance for call"
+        );
         return _functionCallWithValue(target, data, value, errorMessage);
     }
 
-    function _functionCallWithValue(address target, bytes memory data, uint256 weiValue, string memory errorMessage) private returns (bytes memory) {
+    function _functionCallWithValue(
+        address target,
+        bytes memory data,
+        uint256 weiValue,
+        string memory errorMessage
+    ) private returns (bytes memory) {
         require(isContract(target), "Address: call to non-contract");
 
         // solhint-disable-next-line avoid-low-level-calls
-        (bool success, bytes memory returndata) = target.call{ value: weiValue }(data);
+        (bool success, bytes memory returndata) = target.call{value: weiValue}(
+            data
+        );
         if (success) {
             return returndata;
         } else {
@@ -141,7 +184,6 @@ library Address {
         }
     }
 }
-
 
 /**
  * @dev Library for managing
@@ -180,10 +222,9 @@ library EnumerableSet {
     struct Set {
         // Storage of set values
         bytes32[] _values;
-
         // Position of the value in the `values` array, plus 1 because index 0
         // means a value is not in the set.
-        mapping (bytes32 => uint256) _indexes;
+        mapping(bytes32 => uint256) _indexes;
     }
 
     /**
@@ -214,7 +255,8 @@ library EnumerableSet {
         // We read and store the value's index to prevent multiple reads from the same storage slot
         uint256 valueIndex = set._indexes[value];
 
-        if (valueIndex != 0) { // Equivalent to contains(set, value)
+        if (valueIndex != 0) {
+            // Equivalent to contains(set, value)
             // To delete an element from the _values array in O(1), we swap the element to delete with the last one in
             // the array, and then remove the last element (sometimes called as 'swap and pop').
             // This modifies the order of the array, as noted in {at}.
@@ -247,7 +289,11 @@ library EnumerableSet {
     /**
      * @dev Returns true if the value is in the set. O(1).
      */
-    function _contains(Set storage set, bytes32 value) private view returns (bool) {
+    function _contains(Set storage set, bytes32 value)
+        private
+        view
+        returns (bool)
+    {
         return set._indexes[value] != 0;
     }
 
@@ -258,18 +304,25 @@ library EnumerableSet {
         return set._values.length;
     }
 
-   /**
-    * @dev Returns the value stored at position `index` in the set. O(1).
-    *
-    * Note that there are no guarantees on the ordering of values inside the
-    * array, and it may change when more values are added or removed.
-    *
-    * Requirements:
-    *
-    * - `index` must be strictly less than {length}.
-    */
-    function _at(Set storage set, uint256 index) private view returns (bytes32) {
-        require(set._values.length > index, "EnumerableSet: index out of bounds");
+    /**
+     * @dev Returns the value stored at position `index` in the set. O(1).
+     *
+     * Note that there are no guarantees on the ordering of values inside the
+     * array, and it may change when more values are added or removed.
+     *
+     * Requirements:
+     *
+     * - `index` must be strictly less than {length}.
+     */
+    function _at(Set storage set, uint256 index)
+        private
+        view
+        returns (bytes32)
+    {
+        require(
+            set._values.length > index,
+            "EnumerableSet: index out of bounds"
+        );
         return set._values[index];
     }
 
@@ -285,7 +338,10 @@ library EnumerableSet {
      * Returns true if the value was added to the set, that is if it was not
      * already present.
      */
-    function add(AddressSet storage set, address value) internal returns (bool) {
+    function add(AddressSet storage set, address value)
+        internal
+        returns (bool)
+    {
         return _add(set._inner, bytes32(uint256(value)));
     }
 
@@ -295,14 +351,21 @@ library EnumerableSet {
      * Returns true if the value was removed from the set, that is if it was
      * present.
      */
-    function remove(AddressSet storage set, address value) internal returns (bool) {
+    function remove(AddressSet storage set, address value)
+        internal
+        returns (bool)
+    {
         return _remove(set._inner, bytes32(uint256(value)));
     }
 
     /**
      * @dev Returns true if the value is in the set. O(1).
      */
-    function contains(AddressSet storage set, address value) internal view returns (bool) {
+    function contains(AddressSet storage set, address value)
+        internal
+        view
+        returns (bool)
+    {
         return _contains(set._inner, bytes32(uint256(value)));
     }
 
@@ -313,20 +376,23 @@ library EnumerableSet {
         return _length(set._inner);
     }
 
-   /**
-    * @dev Returns the value stored at position `index` in the set. O(1).
-    *
-    * Note that there are no guarantees on the ordering of values inside the
-    * array, and it may change when more values are added or removed.
-    *
-    * Requirements:
-    *
-    * - `index` must be strictly less than {length}.
-    */
-    function at(AddressSet storage set, uint256 index) internal view returns (address) {
+    /**
+     * @dev Returns the value stored at position `index` in the set. O(1).
+     *
+     * Note that there are no guarantees on the ordering of values inside the
+     * array, and it may change when more values are added or removed.
+     *
+     * Requirements:
+     *
+     * - `index` must be strictly less than {length}.
+     */
+    function at(AddressSet storage set, uint256 index)
+        internal
+        view
+        returns (address)
+    {
         return address(uint256(_at(set._inner, index)));
     }
-
 
     // UintSet
 
@@ -350,14 +416,21 @@ library EnumerableSet {
      * Returns true if the value was removed from the set, that is if it was
      * present.
      */
-    function remove(UintSet storage set, uint256 value) internal returns (bool) {
+    function remove(UintSet storage set, uint256 value)
+        internal
+        returns (bool)
+    {
         return _remove(set._inner, bytes32(value));
     }
 
     /**
      * @dev Returns true if the value is in the set. O(1).
      */
-    function contains(UintSet storage set, uint256 value) internal view returns (bool) {
+    function contains(UintSet storage set, uint256 value)
+        internal
+        view
+        returns (bool)
+    {
         return _contains(set._inner, bytes32(value));
     }
 
@@ -368,17 +441,21 @@ library EnumerableSet {
         return _length(set._inner);
     }
 
-   /**
-    * @dev Returns the value stored at position `index` in the set. O(1).
-    *
-    * Note that there are no guarantees on the ordering of values inside the
-    * array, and it may change when more values are added or removed.
-    *
-    * Requirements:
-    *
-    * - `index` must be strictly less than {length}.
-    */
-    function at(UintSet storage set, uint256 index) internal view returns (uint256) {
+    /**
+     * @dev Returns the value stored at position `index` in the set. O(1).
+     *
+     * Note that there are no guarantees on the ordering of values inside the
+     * array, and it may change when more values are added or removed.
+     *
+     * Requirements:
+     *
+     * - `index` must be strictly less than {length}.
+     */
+    function at(UintSet storage set, uint256 index)
+        internal
+        view
+        returns (uint256)
+    {
         return uint256(_at(set._inner, index));
     }
 }
@@ -394,18 +471,15 @@ library EnumerableSet {
  * This contract is only required for intermediate, library-like contracts.
  */
 abstract contract Context {
-    function _msgSender() internal view virtual returns (address payable) {
+    function _msgSender() internal virtual view returns (address payable) {
         return msg.sender;
     }
 
-    function _msgData() internal view virtual returns (bytes memory) {
+    function _msgData() internal virtual view returns (bytes memory) {
         this; // silence state mutability warning without generating bytecode - see https://github.com/ethereum/solidity/issues/2691
         return msg.data;
     }
 }
-
-
-
 
 /**
  * @dev Contract module that allows children to implement role-based access
@@ -451,7 +525,7 @@ abstract contract AccessControl is Context {
         bytes32 adminRole;
     }
 
-    mapping (bytes32 => RoleData) private _roles;
+    mapping(bytes32 => RoleData) private _roles;
 
     bytes32 public constant DEFAULT_ADMIN_ROLE = 0x00;
 
@@ -463,7 +537,11 @@ abstract contract AccessControl is Context {
      *
      * _Available since v3.1._
      */
-    event RoleAdminChanged(bytes32 indexed role, bytes32 indexed previousAdminRole, bytes32 indexed newAdminRole);
+    event RoleAdminChanged(
+        bytes32 indexed role,
+        bytes32 indexed previousAdminRole,
+        bytes32 indexed newAdminRole
+    );
 
     /**
      * @dev Emitted when `account` is granted `role`.
@@ -471,7 +549,11 @@ abstract contract AccessControl is Context {
      * `sender` is the account that originated the contract call, an admin role
      * bearer except when using {_setupRole}.
      */
-    event RoleGranted(bytes32 indexed role, address indexed account, address indexed sender);
+    event RoleGranted(
+        bytes32 indexed role,
+        address indexed account,
+        address indexed sender
+    );
 
     /**
      * @dev Emitted when `account` is revoked `role`.
@@ -480,7 +562,11 @@ abstract contract AccessControl is Context {
      *   - if using `revokeRole`, it is the admin role bearer
      *   - if using `renounceRole`, it is the role bearer (i.e. `account`)
      */
-    event RoleRevoked(bytes32 indexed role, address indexed account, address indexed sender);
+    event RoleRevoked(
+        bytes32 indexed role,
+        address indexed account,
+        address indexed sender
+    );
 
     /**
      * @dev Returns `true` if `account` has been granted `role`.
@@ -509,7 +595,11 @@ abstract contract AccessControl is Context {
      * https://forum.openzeppelin.com/t/iterating-over-elements-on-enumerableset-in-openzeppelin-contracts/2296[forum post]
      * for more information.
      */
-    function getRoleMember(bytes32 role, uint256 index) public view returns (address) {
+    function getRoleMember(bytes32 role, uint256 index)
+        public
+        view
+        returns (address)
+    {
         return _roles[role].members.at(index);
     }
 
@@ -534,7 +624,10 @@ abstract contract AccessControl is Context {
      * - the caller must have ``role``'s admin role.
      */
     function grantRole(bytes32 role, address account) public virtual {
-        require(hasRole(_roles[role].adminRole, _msgSender()), "AccessControl: sender must be an admin to grant");
+        require(
+            hasRole(_roles[role].adminRole, _msgSender()),
+            "AccessControl: sender must be an admin to grant"
+        );
 
         _grantRole(role, account);
     }
@@ -549,7 +642,10 @@ abstract contract AccessControl is Context {
      * - the caller must have ``role``'s admin role.
      */
     function revokeRole(bytes32 role, address account) public virtual {
-        require(hasRole(_roles[role].adminRole, _msgSender()), "AccessControl: sender must be an admin to revoke");
+        require(
+            hasRole(_roles[role].adminRole, _msgSender()),
+            "AccessControl: sender must be an admin to revoke"
+        );
 
         _revokeRole(role, account);
     }
@@ -569,7 +665,10 @@ abstract contract AccessControl is Context {
      * - the caller must be `account`.
      */
     function renounceRole(bytes32 role, address account) public virtual {
-        require(account == _msgSender(), "AccessControl: can only renounce roles for self");
+        require(
+            account == _msgSender(),
+            "AccessControl: can only renounce roles for self"
+        );
 
         _revokeRole(role, account);
     }
@@ -617,22 +716,20 @@ abstract contract AccessControl is Context {
     }
 }
 
-
 contract AccessControlMixin is AccessControl {
     string private _revertMsg;
+
     function _setupContractId(string memory contractId) internal {
-        _revertMsg = string(abi.encodePacked(contractId, ": INSUFFICIENT_PERMISSIONS"));
+        _revertMsg = string(
+            abi.encodePacked(contractId, ": INSUFFICIENT_PERMISSIONS")
+        );
     }
 
     modifier only(bytes32 role) {
-        require(
-            hasRole(role, _msgSender()),
-            _revertMsg
-        );
+        require(hasRole(role, _msgSender()), _revertMsg);
         _;
     }
 }
-
 
 /*
  * @author Hamdi Allam hamdi.allam97@gmail.com
@@ -962,7 +1059,6 @@ library RLPReader {
 /// @title Token predicate interface for all pos portal predicates
 /// @notice Abstract interface that defines methods for custom predicates
 interface ITokenPredicate {
-
     /**
      * @notice Deposit tokens into pos portal
      * @dev When `depositor` deposits tokens into pos portal, tokens get locked into predicate contract.
@@ -976,7 +1072,13 @@ interface ITokenPredicate {
         address depositReceiver,
         address rootToken,
         bytes calldata depositData
-    ) external returns(address, address, bytes memory);
+    )
+        external
+        returns (
+            address,
+            address,
+            bytes memory
+        );
 
     /**
      * @notice Validates and processes exit while withdraw process
@@ -1003,18 +1105,17 @@ contract Initializable {
     }
 }
 
-
 interface Data {
     function setData(bytes calldata bytes_dta) external;
 }
-
 
 contract CustomPredicate is ITokenPredicate, AccessControlMixin, Initializable {
     using RLPReader for bytes;
     using RLPReader for RLPReader.RLPItem;
 
     bytes32 public constant MANAGER_ROLE = keccak256("MANAGER_ROLE");
-    bytes32 public constant CUSTOM_EVENT_SIG = 0x93f3e547dcb3ce9c356bb293f12e44f70fc24105d675b782bd639333aab70df7;
+    bytes32
+        public constant CUSTOM_EVENT_SIG = 0x93f3e547dcb3ce9c356bb293f12e44f70fc24105d675b782bd639333aab70df7;
 
     event LockedERC20(
         address indexed depositor,
@@ -1031,16 +1132,11 @@ contract CustomPredicate is ITokenPredicate, AccessControlMixin, Initializable {
         _setupRole(MANAGER_ROLE, _owner);
     }
 
-  
     function exitTokens(
         address withdrawer,
         address rootToken,
         bytes memory log
-    )
-        public
-        override
-        only(MANAGER_ROLE)
-    {
+    ) public override only(MANAGER_ROLE) {
         RLPReader.RLPItem[] memory logRLPList = log.toRlpItem().toList();
         RLPReader.RLPItem[] memory logTopicRLPList = logRLPList[1].toList(); // topics
 
@@ -1053,11 +1149,11 @@ contract CustomPredicate is ITokenPredicate, AccessControlMixin, Initializable {
             "CustomPredicate: INVALID_SENDER"
         );
 
-        Data(rootToken).setData(
-            logRLPList[2].toBytes() // log data field
-        );
+        bytes memory data = abi.decode(logRLPList[2].toBytes(), (bytes));
+
+        Data(rootToken).setData(data);
     }
-    
+
     function lockTokens(
         address depositor,
         address depositReceiver,
@@ -1067,7 +1163,11 @@ contract CustomPredicate is ITokenPredicate, AccessControlMixin, Initializable {
         external
         override
         only(MANAGER_ROLE)
-        returns(address, address, bytes memory)
+        returns (
+            address,
+            address,
+            bytes memory
+        )
     {
         revert("Disabled feature");
     }
