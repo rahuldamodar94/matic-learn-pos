@@ -16,36 +16,29 @@ async function checkInclusion(txHash) {
 
   block = txDetails.blockNumber;
   return new Promise(async (resolve, reject) => {
-    web3.eth.subscribe(
-      "logs",
-      {
-        address: "0x2890ba17efe978480615e330ecb65333b880928e",
-        fromBlock: (await web3.eth.getBlockNumber()) - 250,
-      },
-      function (error, result) {
-        if (error) {
-          reject(error);
-        }
-
-        if (result.data) {
-          let transaction = web3.eth.abi.decodeParameters(
-            ["uint256", "uint256", "bytes32"],
-            result.data
-          );
-          if (block <= transaction["1"]) {
-            resolve(true);
-          } else {
-            resolve(false);
-          }
+    let results = await web3.eth.getPastLogs({
+      fromBlock: (await web3.eth.getBlockNumber()) - 91000,
+      toBlock: "latest",
+      address: "0x2890ba17efe978480615e330ecb65333b880928e",
+    });
+    for (result of results) {
+      if (result.data) {
+        let transaction = web3.eth.abi.decodeParameters(
+          ["uint256", "uint256", "bytes32"],
+          result.data
+        );
+        if (block <= transaction["1"]) {
+          resolve(result);
         }
       }
-    );
+    }
+    resolve(false);
   });
 }
 
 // transaction hash of the transaction on matic
 checkInclusion(
-  "0x44bd523110add8a2605c44c155ca64c4da7c354e5cb638528c9b8a770e18355e"
+  "0xfe4cdaa7ba4a1a78723b91e7082c9a3611b2ccc40992ffc4964d27f2e8862ab8"
 )
   .then((res) => {
     console.log(res);
