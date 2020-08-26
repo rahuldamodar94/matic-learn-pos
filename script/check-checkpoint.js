@@ -17,7 +17,7 @@ async function checkInclusion(txHash) {
   block = txDetails.blockNumber;
   return new Promise(async (resolve, reject) => {
     let results = await web3.eth.getPastLogs({
-      fromBlock: (await web3.eth.getBlockNumber()) - 91000,
+      fromBlock: (await web3.eth.getBlockNumber()) - 10000,
       toBlock: "latest",
       address: "0x2890ba17efe978480615e330ecb65333b880928e",
     });
@@ -38,14 +38,12 @@ async function checkInclusion(txHash) {
 
 // transaction hash of the transaction on matic
 checkInclusion(
-  "0xfe4cdaa7ba4a1a78723b91e7082c9a3611b2ccc40992ffc4964d27f2e8862ab8"
+  "0xedc8e1cda07961c328b0525632627bd16c3bf4509a001468f9f36d0840c11507"
 )
   .then((res) => {
     console.log(res);
+    provider.disconnect();
   })
   .catch((err) => {
     console.log(err);
-  })
-  .finally(() => {
-    provider.disconnect();
   });
