@@ -1,0 +1,24 @@
+module.exports = {
+  root: {
+    RPC: "https://mainnet.infura.io/v3/API-KEY",
+    DERC20: "0x655F2166b0709cd575202630952D71E2bB0d61Af",
+    DERC721: "0x5a08d01e07714146747950CE07BB0f741445D1b8",
+    DERC1155: "0x2e3Ef7931F2d0e4a7da3dea950FF3F19269d9063",
+  },
+  child: {
+    RPC: "https://rpc-mainnet.matic.network",
+    DERC20: "0xfe4F5145f6e09952a5ba9e956ED0C25e3Fa4c7F1",
+    DERC721: "0xEC8CB8bBb069470bC358ffB0e3710c64830da383",
+    DERC1155: "0xA07e45A987F19E25176c877d98388878622623FA",
+  },
+  user: {
+    privateKey:
+      "0xPVT_KEY",
+    address: "Address",
+    amount: "1000000000000000000", // 0.005
+    amount2: "700000000000000000", // 0.007
+    tokenId:
+      "60399350241383852757821046101235634991156913804166740995010931519407953501076",
+    tokenId2: "6789",
+  },
+};
