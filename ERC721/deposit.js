@@ -4,10 +4,10 @@ const maticPOSClient = utils.getMaticPOSClient();
 
 const execute = async () => {
   try {
-    const tx = await maticPOSClient.depositERC721ForUser(
+    const tx = await maticPOSClient.depositBatchERC721ForUser(
       config.root.DERC721,
       config.user.address,
-      config.user.tokenId
+      ["30"]
     );
     console.log(tx.transactionHash); // eslint-disable-line
   } catch (e) {
