@@ -2,11 +2,11 @@ const utils = require("../utils");
 const maticPOSClient = utils.getMaticPOSClient();
 
 const burnHash =
-  "0xa1edc57025ffc76da4014e7e1485df811862ca3492ac65220ec6e6b2c2ef873a";
+  "0x6dda0491812890543ad5ca67fd56f6d76b8674db0a9b9dfab991e7732fb4b681";
 
 const execute = async () => {
   try {
-    const tx = await maticPOSClient.exitERC721(burnHash);
+    const tx = await maticPOSClient.exitBatchERC721(burnHash);
     console.log(tx.transactionHash); // eslint-disable-line
   } catch (e) {
     console.error(e); // eslint-disable-line

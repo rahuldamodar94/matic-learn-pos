@@ -7,7 +7,7 @@ const execute = async () => {
     const tx = await maticPOSClient.depositBatchERC721ForUser(
       config.root.DERC721,
       config.user.address,
-      ["30"]
+      ["1", "2"]
     );
     console.log(tx.transactionHash); // eslint-disable-line
   } catch (e) {

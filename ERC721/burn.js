@@ -4,10 +4,10 @@ const maticPOSClient = utils.getMaticPOSClient();
 
 const execute = async () => {
   try {
-    const tx = await maticPOSClient.burnERC721(
-      config.child.DERC721,
-      config.user.tokenId
-    );
+    const tx = await maticPOSClient.burnBatchERC721(config.child.DERC721, [
+      "1",
+      "2",
+    ]);
     console.log(tx.transactionHash); // eslint-disable-line
   } catch (e) {
     console.error(e); // eslint-disable-line
