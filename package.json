@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@maticnetwork/maticjs": "github:maticnetwork/matic.js/commit/2ece8541f9c6c60c529cfac1f8ce465f4f543b7e",
+    "matic": "github:rahuldamodar94/matic.js#765dbceedbf68bc2df60ae6c01a824bd38de9134",
     "@truffle/hdwallet-provider": "^1.0.43",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
