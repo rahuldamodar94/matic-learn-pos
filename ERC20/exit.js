@@ -7,10 +7,16 @@ const burnHash =
 const exit = async () => {
   try {
     const payload = await maticPOSClient.posRootChainManager.getExitPayload(burnHash)
-    console.log(payload)
+    return (payload)
   } catch (e) {
     console.error(e); // eslint-disable-line
   }
 };
+
+exit().then(res => {
+  console.log(res)
+}).catch(err  => {
+  console.log(err)
+})
 
 module.exports = exit
