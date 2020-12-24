@@ -13,14 +13,14 @@ app.use(bodyParser.json());
 
 app.use(cors());
 
-app.get('/payload', async (req,res) => {
-    let burnTxHash = req.query.txHash
-    let payload = await exit(burnTxHash)
-    return payload
-})
+app.get("/payload", async (req, res) => {
+  let burnTxHash = req.query.txHash;
+  let payload = await exit(burnTxHash);
+  return res.status(200).json({ data: payload });
+});
 
 app.listen(7000, () => {
-    console.log("Server running on", 7000);
+  console.log("Server running on", 7000);
 });
 
 module.exports = app;
