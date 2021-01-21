@@ -3,7 +3,7 @@ const maticPOSClient = utils.getMaticPOSClient();
 
 const exit = async (txHash) => {
   try {
-    const payload = await maticPOSClient.posRootChainManager.getExitPayload(txHash)
+    const payload = await maticPOSClient.posRootChainManager.getERC20ExitPayload(txHash)
     return (payload)
   } catch (e) {
     console.error(e); // eslint-disable-line

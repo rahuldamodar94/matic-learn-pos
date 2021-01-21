@@ -1,4 +1,4 @@
-const MaticPOSClient = require("matic").MaticPOSClient;
+const MaticPOSClient = require("@maticnetwork/maticjs").MaticPOSClient;
 const config = require("./config");
 const HDWalletProvider = require("@truffle/hdwallet-provider");
 
