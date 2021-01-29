@@ -4,8 +4,8 @@ const HDWalletProvider = require("@truffle/hdwallet-provider");
 
 const getMaticPOSClient = () => {
   return new MaticPOSClient({
-    network: "mainnet", // For mainnet change this to mainnet
-    version: "v1", // For mainnet change this to v1
+    network: "testnet", // For mainnet change this to mainnet
+    version: "mumbai", // For mainnet change this to v1
     parentProvider: new HDWalletProvider(
       config.user.privateKey,
       config.root.RPC
