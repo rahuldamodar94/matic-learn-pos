@@ -14,8 +14,8 @@ const exit = async (txHash, rootTunnelAddress) => {
 };
 
 const txHash =
-  "0xb511fa1620e65e3d1931ef3c955bc528d4c9e8640d78a17cace81636948d22fd";
-const rootTunnelAddress = "";
+  "0x776cfd1d4851a6f7b2b2e29576a828d5bfb969beee9ad96628a35b92e7094a9e";
+const rootTunnelAddress = "0xed41Ccad5cF294f7Fd1B7C11ca11A7C88948eC58";
 
 exit(txHash, rootTunnelAddress)
   .then((res) => {
