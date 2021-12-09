@@ -3,9 +3,10 @@ const config = require("./config");
 const HDWalletProvider = require("@truffle/hdwallet-provider");
 
 const getMaticPOSClient = () => {
+  console.log(config.user.privateKey)
   return new MaticPOSClient({
-    network: "testnet", // For mainnet change this to mainnet
-    version: "mumbai", // For mainnet change this to v1
+    network: "mainnet", // For mainnet change this to mainnet
+    version: "v1", // For mainnet change this to v1
     parentProvider: new HDWalletProvider(
       config.user.privateKey,
       config.root.RPC
@@ -14,6 +15,9 @@ const getMaticPOSClient = () => {
       config.user.privateKey,
       config.child.RPC
     ),
+    rootChain: config.root.POSRootChainManager,
+    posRootChainManager: config.root.POSRootChainManager,
+    posERC20Predicate: config.root.posERC20Predicate,
     parentDefaultOptions: { from: config.user.address }, // optional, can also be sent as last param while sending tx
     maticDefaultOptions: { from: config.user.address }, // optional, can also be sent as last param while sending tx
   });

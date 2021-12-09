@@ -1,16 +1,15 @@
 const utils = require("../utils");
 const maticPOSClient = utils.getMaticPOSClient();
 
-const burnHash =
-  "0xff9ec1610020b164194f1293c0df6d807ba5cb972092f054582da0ca12c7fa9c";
-
-const execute = async () => {
+const exit = async () => {
   try {
-    const tx = await maticPOSClient.exitERC20(burnHash);
-    console.log(tx.transactionHash); // eslint-disable-line
+    const payload = await maticPOSClient.posRootChainManager.customPayload(
+      "0xff6e299d96bec2baa409e2a77e17ebe7fa7e992b6126c20b2ac326d0f95b946a",
+      "0xebff2602b3f468259e1e99f613fed6691f3a6526effe6ef3e768ba7ae7a36c4f")
+    console.log(payload)
   } catch (e) {
     console.error(e); // eslint-disable-line
   }
 };
 
-execute().then(() => process.exit(0));
+exit()
